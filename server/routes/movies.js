@@ -132,5 +132,35 @@ router.get('/directors/top', async (req, res) => {
   res.json(top);
 });
 
+//8. Adding a movie to a user's watchlist
+router.post('/watchlist', auth, async (req, res) => {
+  try {
+    const { movieId } = req.body;
+    // Uses req.userId from auth middleware
+    const user = await User.findByIdAndUpdate(
+      req.userId,
+      { $addToSet: { watchlist: movieId } },  // ensures no duplicates
+      { new: true }
+    );
+    res.json({ watchlist: user.watchlist });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+//9. Adding a movie to a user's liked list
+router.post('/liked', auth, async (req, res) => {
+  try {
+    const { movieId } = req.body;
+    const user = await User.findByIdAndUpdate(
+      req.userId,
+      { $push: { likedMovies: movieId } },   // or use $addToSet for uniqueness
+      { new: true }
+    );
+    res.json({ likedMovies: user.likedMovies });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
 
 module.exports = router;
