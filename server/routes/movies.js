@@ -7,6 +7,16 @@ const authMiddleware = require('../middleware/auth');
 
 const router = express.Router();
 
+//0. getting all movies
+router.get('/', async (req, res) => {
+  try {
+    const movies = await Movie.find();  
+    return res.json(movies);             
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+});
+
 //1. Search by Cast, Title, or Genre
 router.get('/search', async (req, res) => {
   const { cast, title, genres } = req.query;
