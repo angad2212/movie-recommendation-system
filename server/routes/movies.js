@@ -8,16 +8,20 @@ const router = express.Router();
 
 //1. Search by Cast, Title, or Genre
 router.get('/search', async (req, res) => {
-  const term = req.query.term || '';
-  const regex = new RegExp(term, 'i');
-  const movies = await Movie.find({
-    $or: [
-      { cast:   { $regex: regex } },
-      { title:  { $regex: regex } },
-      { genres: { $regex: regex } }
-    ]
-  });
-  res.json(movies);
+  const { cast, title, genres } = req.query;
+
+  const query = {};
+
+  if (cast) query.cast = new RegExp(cast, 'i');
+  if (title) query.title = new RegExp(title, 'i');
+  if (genres) query.genres = new RegExp(genres, 'i');
+
+  try {
+    const movies = await Movie.find(query);
+    res.json(movies);
+  } catch (error) {
+    res.status(500).json({ message: 'Search failed', error });
+  }
 });
 
 //2. Append Platforms with Advanced $push
