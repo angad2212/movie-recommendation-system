@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const Movie = require('../models/movie');
 const User = require('../models/user');
 const auth = require('../middleware/auth');
+const authMiddleware = require('../middleware/auth');
 
 const router = express.Router();
 
@@ -32,10 +33,10 @@ router.post('/:id/platforms', async (req, res) => {
     {
       $push: {
         platforms: {
-          $each:     platforms,
+          $each: platforms,
           $position: 2,
-          $sort:     1,
-          $slice:   -5
+          $sort: 1,
+          $slice: -5
         }
       }
     },
@@ -60,7 +61,7 @@ router.delete('/:id/platforms', async (req, res) => {
   const { removeAll, platforms } = req.body;
   const update = removeAll
     ? { $pullAll: { platforms } }
-    : { $pull:    { platforms: platforms[0] } };
+    : { $pull: { platforms: platforms[0] } };
   const movie = await Movie.findByIdAndUpdate(
     req.params.id,
     update,
@@ -73,30 +74,42 @@ router.delete('/:id/platforms', async (req, res) => {
 router.patch('/:id/stats', async (req, res) => {
   const { incViews, mulScore, minRating, maxRating, setFields, unsetFields } = req.body;
   const ops = {};
-  if (incViews)  ops.$inc   = { 'stats.views': incViews };
-  if (mulScore)  ops.$mul   = { 'stats.score': mulScore };
-  if (minRating) ops.$min   = { 'stats.low':   minRating };
-  if (maxRating) ops.$max   = { 'stats.high':  maxRating };
-  if (setFields) ops.$set   = setFields;
+  if (mulScore)  ops.$mul = { 'stats.score': mulScore };
+  if (incViews)  ops.$inc = { 'stats.views': incViews };
+  if (minRating) ops.$min = { 'stats.low':   minRating };
+  if (maxRating) ops.$max = { 'stats.high':  maxRating };
+  if (setFields) ops.$set = setFields;
   if (unsetFields) ops.$unset = unsetFields.reduce((u, f) => (u[f] = '' , u), {});
   const movie = await Movie.findByIdAndUpdate(req.params.id, ops, { new: true });
   res.json(movie.stats);
 });
 
 //6. Update a Nested Review with Positional Operator
-router.patch('/:movieId/reviews', async (req, res) => {
-  const { userId, rating, comment } = req.body;
-  const movie = await Movie.findOneAndUpdate(
-    { _id: req.params.movieId, 'reviews.user': userId },
-    {
-      $set: {
-        'reviews.$.rating':  rating,
-        'reviews.$.comment': comment
-      }
-    },
-    { new: true }
-  );
-  res.json(movie.reviews);
+router.patch('/:movieId/reviews', authMiddleware, async (req, res) => {
+  const { rating, comment } = req.body;
+  const userId = req.userId; 
+
+  try {
+    const movie = await Movie.findOneAndUpdate(
+      { _id: req.params.movieId, 'reviews.user': userId },
+      {
+        $set: {
+          'reviews.$.rating': rating,
+          'reviews.$.comment': comment
+        }
+      },
+      { new: true }
+    );
+
+    if (!movie) {
+      return res.status(404).json({ message: 'Review not found for this user' });
+    }
+
+    res.json(movie.reviews);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Something went wrong' });
+  }
 });
 
 //7. Aggregate Top Directors by Average Rating
@@ -104,12 +117,12 @@ router.get('/directors/top', async (req, res) => {
   const top = await Movie.aggregate([
     { $unwind: '$reviews' },
     { $group: {
-        _id:       { director: '$director', movie: '$title' },
-        avgMovie:  { $avg: '$reviews.rating' }
+        _id: { director: '$director', movie: '$title' },
+        avgMovie: { $avg: '$reviews.rating' }
       }
     },
     { $group: {
-        _id:       '$_id.director',
+        _id: '$_id.director',
         avgRating: { $avg: '$avgMovie' }
       }
     },
