@@ -83,7 +83,7 @@ Follow these steps to get MovieVerse up and running on your local machine:
 
 2.  **Install backend dependencies:**
     ```bash
-    cd backend
+    cd server
     npm install
     ```
 
@@ -103,7 +103,7 @@ Follow these steps to get MovieVerse up and running on your local machine:
 
 5.  **Navigate to the frontend directory:**
     ```bash
-    cd ../frontend
+    cd ../client
     ```
 
 6.  **Install frontend dependencies:**
@@ -112,7 +112,7 @@ Follow these steps to get MovieVerse up and running on your local machine:
     ```
 
 7.  **Configure frontend environment variables:**
-    Create a `.env.local` file in the `frontend` directory and set the backend API URL:
+    Create a `.env.local` file in the `client` directory and set the backend API URL:
     ```env
     REACT_APP_API_URL=http://localhost:5000/api
     ```
@@ -122,22 +122,6 @@ Follow these steps to get MovieVerse up and running on your local machine:
     npm start
     ```
     (Usually runs on `http://localhost:3000`)
-
-## 🤝 Contributing
-
-Contributions are welcome! If you have ideas for improvements or find any issues, please feel free to open a pull request or submit an issue on GitHub.
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🏆 Show Your Support
-
-If you find MovieVerse helpful or interesting, consider giving it a star on GitHub! ⭐
-
-## 📬 Contact
-
-[Your Name/Organization] - [Your Email/Website]
 
 ---
 
