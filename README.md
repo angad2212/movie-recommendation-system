@@ -35,11 +35,6 @@ Discover influential filmmakers on the dedicated "Top Directors" page, ranked us
 
 ![Top Directors](https://github.com/user-attachments/assets/b093be9a-b568-4c1d-8a9c-39c00e4748d2)
 
-### Data Flow Diagram
-
-The following diagram illustrates the flow of data within the MovieVerse application, showcasing the interaction between the frontend, backend, and database.
-
-![Data Flow Diagram](https://github.com/user-attachments/assets/8a67b8d1-f3cc-4b84-af2d-df14ec76a577)
 
 ## 🛠️ Technologies Used
 
