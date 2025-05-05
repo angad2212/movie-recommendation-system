@@ -1,6 +1,5 @@
 # MovieVerse - Your Personalized Movie Discovery Platform
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![MERN Stack](https://img.shields.io/badge/Tech-MERN%20Stack-brightgreen.svg)](https://www.mongodb.com/mern-stack)
 [![React](https://img.shields.io/badge/React-Library-blueviolet.svg)](https://react.dev/)
 [![Node.js](https://img.shields.io/badge/Node.js-Runtime-success.svg)](https://nodejs.org/en/)
