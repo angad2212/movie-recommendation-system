@@ -18,6 +18,28 @@ MovieVerse is a modern, user-centric web application built with the MERN stack, 
 * **Admin Panel (Secured):** Administrators can efficiently manage the movie database, adding, editing, and deleting movie entries.
 * **Real-time Interactions:** All your likes and watchlist updates are reflected instantly, providing a dynamic user experience.
 * **Scalable MERN Architecture:** Built with a modular design and efficient data handling for optimal performance as the movie library and user base grow.
+* **Intelligent Recommendations:** Discover movies tailored to your viewing history and preferences on the main dashboard.
+* **Top Directors Insights:** Explore a dedicated page showcasing top directors, calculated using an average review algorithm for insightful discovery.
+
+## 🖼️ Screenshots
+
+### Main Dashboard & Recommendations
+
+The main dashboard provides a visually appealing overview of featured movies and personalized recommendations based on your viewing history.
+
+![Main Dashboard & Recommendations](https://github.com/user-attachments/assets/1e8d0b05-11aa-48a8-8103-dabe5ef08265)
+
+### Top Directors
+
+Discover influential filmmakers on the dedicated "Top Directors" page, ranked using an average review algorithm to highlight critically acclaimed talent.
+
+![Top Directors](https://github.com/user-attachments/assets/b093be9a-b568-4c1d-8a9c-39c00e4748d2)
+
+### Data Flow Diagram
+
+The following diagram illustrates the flow of data within the MovieVerse application, showcasing the interaction between the frontend, backend, and database.
+
+![Data Flow Diagram](https://github.com/user-attachments/assets/8a67b8d1-f3cc-4b84-af2d-df14ec76a577)
 
 ## 🛠️ Technologies Used
 
@@ -101,10 +123,6 @@ Follow these steps to get MovieVerse up and running on your local machine:
     ```
     (Usually runs on `http://localhost:3000`)
 
-## 🖼️ Screenshots
-
-*(You can add some compelling screenshots of the application here to showcase the UI and key features. This will significantly enhance the visual appeal for recruiters.)*
-
 ## 🤝 Contributing
 
 Contributions are welcome! If you have ideas for improvements or find any issues, please feel free to open a pull request or submit an issue on GitHub.
@@ -123,4 +141,4 @@ If you find MovieVerse helpful or interesting, consider giving it a star on GitH
 
 ---
 
-**This project demonstrates a strong understanding of the MERN stack and the ability to build a full-fledged, user-centric web application. The features implemented showcase practical skills in authentication, data management, API design, and responsive frontend development.**
+**This project demonstrates a strong understanding of the MERN stack and the ability to build a full-fledged, user-centric web application with advanced features like personalized recommendations and data-driven insights (Top Directors). The included screenshots and data flow diagram provide a clear overview of the application's functionality and architecture, making it a compelling addition to any portfolio.**
